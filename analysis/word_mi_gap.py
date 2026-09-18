@@ -33,6 +33,8 @@ import os
 import random
 import statistics as st
 import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import voynich_lib as V
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -112,7 +114,7 @@ def build(cfg):
 
 
 def main():
-    cfg = json.load(open(os.path.join(HERE, "FROZEN_CONFIG.json"), encoding="utf-8"))
+    cfg = json.load(open(V.frozen_path("FROZEN_CONFIG.json"), encoding="utf-8"))
     g, tr_doc, te_doc, real2 = build(cfg)
     test = flatten(te_doc)
     kw = dict(p_copy=cfg["p_copy"], recency_alpha=cfg["recency_alpha"],

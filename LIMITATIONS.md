@@ -41,7 +41,7 @@ are looked for.
 | MI(onset class; final character) | 0.103 | 0.094 | 8 % |
 | H(core) of the word's middle slot | 2.10 | 2.03 | 3 % |
 | hapax share | 19.7 % | 18.3 % | 7 % |
-| word repetition, lags 2–6 | 0.893 % | 0.251 % | **3.6 × low** (see §6b — mechanism implemented, off by choice) |
+| word repetition, lags 2–6 | 0.907 % | 0.267 % | **3.4 × low** (see §6b — mechanism implemented, off by choice) |
 
 The mutual-information rows were recomputed. The earlier version used a Miller–Madow
 correction whose magnitude, on a few thousand character pairs against a 22 × 22 table,
@@ -127,28 +127,31 @@ The remaining gap is a bounded 0.022–0.032 bits at character distances 3 to 6 
 word, and nothing beyond. The word-repetition figure is the one metric the frozen form
 knowingly leaves off, now that it is reachable — see §6b.
 
-## 3b. The model is section-specific, and the headline figure is within-section
+## 3b. The model is section-specific, and the headline describes a mixture
 
 `section_transfer.py` fits the generator to one section and tests it on another. The error
-goes from 2.6–5.2 % (same section) to 10–27 % (different section). The 3.7 % figure in the
-README is therefore a within-section number: the leaf-parity split used throughout put the
-same mixture of sections in both halves.
+goes from 2.6–5.2 % (same section) to 10–27 % (different section).
 
-It is worse than that, and `book_model.py` measures how much worse. Three designs, same
-44 metrics, same held-out leaves:
+The 3.7 % headline is not a within-section figure, and it is not a whole-book figure
+either: it is measured over a held-out half carrying the same **mixture** of sections as
+the half the model was fitted on. An earlier revision of this file called it
+"within-section", which is wrong in the other direction. `book_model.py` settles it with
+three designs on the same 44 metrics and the same held-out leaves:
 
 | design | per-section error | pooled |
 |---|---|---|
-| **A** one pooled model, the whole held-out half at once | — | **3.7 %** |
+| **A** one pooled model, the whole held-out half at once | — | **3.9 %** |
 | **B** the same pooled model, each section on its own | 10.6–26.2 % | 14.4 % |
 | **C** one parameter set per section, half a section each | 5.7–14.2 % | 7.5 % |
 
-A and B are the same model. The distance between 3.7 % and 14.4 % is not a fitting
-failure: pooling the sections produces statistics that no individual section has, and the
-model reproduces the mixture. **The headline is a statement about the book in aggregate
-and cannot be pushed down to its parts.** Per-section parameters halve the per-section
-error, and their limit is text — pharmaceutical has 1 494 training words under that design
-and lands at 14.2 %, recipes has 4 982 and lands at 6.1 %.
+A and B are the same model. (A reads 3.9 % here and 3.7 % in the headline: same model on
+the same split, but the script reports one seed while the headline averages three.) The
+distance between 3.9 % and 14.4 % is not a fitting failure — pooling the sections produces
+statistics that no individual section has, and what the model reproduces is the mixture.
+**The headline is a statement about the book in aggregate and cannot be pushed down to its
+parts.** Per-section parameters halve the per-section error, and their limit is text:
+pharmaceutical has 1 494 training words under that design and lands at 14.2 %, recipes has
+4 982 and lands at 6.1 %.
 
 Which table carries it is measurable. `section_gap_localise.py` replaces one component of
 the source model with the target's at a time: the (length x final shape) joint removes
@@ -185,7 +188,7 @@ demonstration is of executability given the tables, not of how the tables would 
 Recorded because each one changed a published number.
 
 1. **A leaked layout parameter.** Line and paragraph constants were once taken from the
-   held-out document. Fixed; the honest within-section error moved from 3.2 % to 4.0 %.
+   held-out document. Fixed; the honest error moved from 3.2 % to 4.0 %.
 2. **A mutual-information comparison measuring its own estimator bias.** The Miller–Madow
    correction on the table sizes involved (0.168 bits) was larger than the effect being
    compared. Corrected; the manuscript/generator difference in far-MI largely disappeared.

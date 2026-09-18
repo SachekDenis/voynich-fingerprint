@@ -54,6 +54,8 @@ import os
 import random
 import re
 import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import voynich_lib as V
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -136,7 +138,7 @@ def cost(doc, te_doc, te_words, real2):
 
 
 def main():
-    cfg = json.load(open(os.path.join(HERE, "FROZEN_CONFIG.json"), encoding="utf-8"))
+    cfg = json.load(open(V.frozen_path("FROZEN_CONFIG.json"), encoding="utf-8"))
     cfg = dict(cfg, p_selfpool=0.0, p_selfmut=0.0, p_pool=0.0, pool_size=0, pool_mode="top")
     tr_doc, te_doc = split_by_folio()
     te_words = flatten(te_doc)
@@ -193,6 +195,69 @@ def main():
 
     print(f"\n  {'manuscript':26s} {t_in:6.3f}% {t_in/t_base:6.2f}x {t_out:6.3f}% "
           f"{t_out/t_base:6.2f}x")
+
+    # Everything above is one seed on the selection split. The numbers quoted in
+    # NOVELTY.md and LIMITATIONS.md are a three-seed mean on BOTH splits, because the
+    # mechanism's whole claim is that it is not fitting the split it was found on.
+    print("\n  both splits, three seeds, with and without the passage mechanism:")
+    from tier2_metrics import GALLOWS as _G
+    from tune_artgen import err as _err
+    par2, fol2 = split_with_folios()
+    num = lambda f: int(re.match(r"f?(\d+)", f).group(1))
+    even2 = [p for p, f in zip(par2, fol2) if num(f) % 2 == 0]
+    odd2 = [p for p, f in zip(par2, fol2) if num(f) % 2 == 1]
+    gen_kw = {k: cfg[k] for k in ("p_copy", "recency_alpha", "recency_window",
+                                  "buffer_size", "cross_onset", "use_onset",
+                                  "gallows_scale", "p_repeat", "p_pair",
+                                  "copy_decay", "line_fit")}
+    print(f"  {'config':22s} {'split':>9s} {'within':>8s} {'w/base':>7s} "
+          f"{'across':>8s} {'a/base':>7s} | {'tier-1':>7s} {'tier-2':>7s} {'overall':>8s}")
+    print("  " + "-" * 94)
+    two = {}
+    for lab, ov in (("frozen", {}), ("passage pool", {"p_selfpool": 0.10,
+                                                      "p_selfmut": 0.25})):
+        for sn, (trd, ted) in (("normal", (even2, odd2)), ("reversed", (odd2, even2))):
+            tw2, ew2 = flatten(trd), flatten(ted)
+            g2 = ArtGenerator(tw2, merges=cfg["merges"])
+            g2.calibrate()
+            g2.calibrate_onset(tw2)
+            g2.calibrate_cross_onset(tw2)
+            g2.calibrate_common(tw2)
+            g2.calibrate_pairs(tw2)
+            g2.calibrate_lengths(trd)
+            g2.fit_penalty = cfg["fit_penalty"]
+            g2.calibrate_proposal()
+            g2.calibrate_layout(trd, gallows_p=0.0)
+            g2.gallows_scale = cfg["gallows_scale"]
+            r2, _ = measure_document(ted)
+            pr2 = [ln for p in g2.document(40, seed=3) for ln in p]
+            nat2 = sum(1 for ln in pr2
+                       if ln and any(ln[0].startswith(x) for x in _G)) / len(pr2)
+            g2.line_gallows_p = max(0.0, (r2["para/line-initial gallows %"] / 100
+                                          - nat2) / (1 - nat2))
+            e1s, e2s, prof = [], [], []
+            for s in cfg["seeds"]:
+                d = g2.document(r2["paras"], seed=s, **dict(gen_kw, **ov))
+                w2 = flatten(d)
+                x1 = tier1(w2, ew2)
+                x2, _ = measure_document(d)
+                e1s.append(sum(_err(*x1[k]) for k in x1) / len(x1))
+                e2s.append(sum(_err(x2[k], r2[k]) for k in r2) / len(r2))
+                prof.append(profile_doc(d))
+            e1 = sum(e1s) / len(e1s)
+            e2 = sum(e2s) / len(e2s)
+            i = sum(x[0] for x in prof) / len(prof)
+            o = sum(x[1] for x in prof) / len(prof)
+            b = sum(x[2] for x in prof) / len(prof)
+            print(f"  {lab:22s} {sn:>9s} {i:7.3f}% {i/b:6.2f}x {o:7.3f}% {o/b:6.2f}x | "
+                  f"{e1:6.2f}% {e2:6.2f}% {(e1 * 15 + e2 * 29) / 44:7.2f}%")
+            two[f"{lab}_{sn}"] = dict(within=i, across=o, baseline=b,
+                                      within_ratio=i / b, across_ratio=o / b,
+                                      tier1_pct=e1, tier2_pct=e2,
+                                      overall_pct=(e1 * 15 + e2 * 29) / 44)
+        print()
+    out["two_split"] = two
+
     json.dump(out, open(os.path.join(HERE, "REPETITION_FIX.json"), "w",
                         encoding="utf-8"), indent=1)
     print("\nwrote REPETITION_FIX.json")

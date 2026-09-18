@@ -320,8 +320,7 @@ def split_with_folios():
 
 
 def main():
-    cfg = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                      "FROZEN_CONFIG.json"), encoding="utf-8"))
+    cfg = json.load(open(V.frozen_path("FROZEN_CONFIG.json"), encoding="utf-8"))
     tr_doc, te_doc = split_by_folio()
     tr, te = flatten(tr_doc), flatten(te_doc)
     allp, allf = split_with_folios()

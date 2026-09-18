@@ -177,3 +177,18 @@ def word_entropy(words):
     n = sum(wc.values())
     h1 = -sum((c / n) * math.log2(c / n) for c in wc.values())
     return h1, n, len(wc)
+
+
+def frozen_path(name):
+    """Locate a frozen artefact in either layout.
+
+    In the repository the frozen configuration and results live in frozen/; in a working
+    copy made by copying analysis/ alone they sit beside the scripts. Scripts call this
+    so both layouts work without an environment variable.
+    """
+    here = os.path.dirname(os.path.abspath(__file__))
+    parent = os.path.dirname(here)
+    for cand in (os.path.join(parent, "frozen", name), os.path.join(here, name)):
+        if os.path.exists(cand):
+            return cand
+    return os.path.join(parent, "frozen", name)

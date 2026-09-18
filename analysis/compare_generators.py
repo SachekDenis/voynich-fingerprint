@@ -28,6 +28,8 @@ import os
 import re
 import subprocess
 import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import voynich_lib as V
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from tier2_metrics import measure_document, GALLOWS
@@ -117,7 +119,7 @@ def score(ms, wss, keys, real2):
 
 
 def main():
-    cfg = json.load(open(os.path.join(HERE, "FROZEN_CONFIG.json"), encoding="utf-8"))
+    cfg = json.load(open(V.frozen_path("FROZEN_CONFIG.json"), encoding="utf-8"))
     tr_doc, te_doc = split_by_folio()
     te_words = flatten(te_doc)
     real2, _ = measure_document(te_doc)

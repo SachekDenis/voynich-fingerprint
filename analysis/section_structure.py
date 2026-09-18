@@ -268,8 +268,7 @@ def decomposition():
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from section_transfer import section_words, build, finish
 
-    cfg = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                      "FROZEN_CONFIG.json"), encoding="utf-8"))
+    cfg = json.load(open(V.frozen_path("FROZEN_CONFIG.json"), encoding="utf-8"))
     words, paras = section_words()
     for src, dst in (("herbal", "recipes"), ("herbal", "herbal")):
         g = build(list(words[src]))

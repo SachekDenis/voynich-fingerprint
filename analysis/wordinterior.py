@@ -107,8 +107,7 @@ if __name__ == "__main__":
     from tune_artgen import split_by_folio, flatten
 
     ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    cfg = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                      "FROZEN_CONFIG.json"), encoding="utf-8"))
+    cfg = json.load(open(V.frozen_path("FROZEN_CONFIG.json"), encoding="utf-8"))
     tr, te = split_by_folio()
     train = flatten(tr)
     test = flatten(te)

@@ -24,6 +24,8 @@ which is why it is here only as a reference.
 import json
 import os
 import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import voynich_lib as V
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from tier2_metrics import measure_document, GALLOWS
@@ -72,7 +74,7 @@ def run(src, dst, cfg, words, paras, sw=None):
 
 
 def main():
-    cfg = json.load(open(os.path.join(HERE, "FROZEN_CONFIG.json"), encoding="utf-8"))
+    cfg = json.load(open(V.frozen_path("FROZEN_CONFIG.json"), encoding="utf-8"))
     words, paras = section_docs()
     print("transfer error with one component taken from the target section\n")
     print(f"  {'train -> test':24s} {'swapped':>10s} {'tier-1':>8s} {'tier-2':>8s} "

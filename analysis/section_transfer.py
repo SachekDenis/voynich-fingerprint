@@ -136,8 +136,7 @@ def run(src, dst, cfg, words, paras, verbose=False, layout_from=None):
 
 
 if __name__ == "__main__":
-    cfg = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                      "FROZEN_CONFIG.json"), encoding="utf-8"))
+    cfg = json.load(open(V.frozen_path("FROZEN_CONFIG.json"), encoding="utf-8"))
     words, paras = section_docs()
     print("words per section: " +
           ", ".join(f"{s} {len(words[s])}" for s in SECTIONS if s in words))

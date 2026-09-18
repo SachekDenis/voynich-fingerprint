@@ -92,7 +92,7 @@ def score(g, cfg, te, seed=7):
 
 
 def main():
-    cfg = json.load(open(os.path.join(HERE, "FROZEN_CONFIG.json"), encoding="utf-8"))
+    cfg = json.load(open(V.frozen_path("FROZEN_CONFIG.json"), encoding="utf-8"))
     tr_doc, te_doc = split_by_folio()
     docs = section_split()
     out = {}

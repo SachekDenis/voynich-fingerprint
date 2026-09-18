@@ -11,7 +11,7 @@ This file says which is which.
 | finding | who established it |
 |---|---|
 | Conditional character entropy far below any natural language | **Bennett (1976)**, then Landini (2001), Reddy & Knight (2011) |
-| h2 ≈ 1.9 for Voynichese against 2.77–6.14 for 316 comparison texts | **Lindemann & Bowern (2020)** — a stricter version of our own 13-corpus test |
+| h2 ≈ 1.9 for Voynichese against 2.77–6.14 for 316 comparison texts | **Lindemann & Bowern (2020)** — a stricter version of our own 13-corpus test, in which the nearest language is Dante at 3.13 |
 | Word-length distribution is unimodal with a peak at 4–5 and no short-word spike | Stolfi; Reddy & Knight (2011) |
 | A handful of character bigrams carries a large share of the text | **Lindemann & Bowern (2020)** — they report 29.3 %; we measure 21.8 % |
 | Zipf's law holds; vocabulary growth follows Heaps' law | Landini (2001); Ponnaluri (2024) |
@@ -172,9 +172,10 @@ distance in words:
 | Latin | 0.17 | 0.75 | 1.41 | 1.78 | 1.60 | 1.71 | 1.80 | 1.31 |
 
 Against the Simpson index Σf² = 0.326 %, which is the rate independent sampling from the
-text's own word distribution would give, the manuscript runs at **2.6 ×** and Latin at
-1.4 × (rising with distance, as function words do). The generator sits below even the
-baseline.
+text's own word distribution would give, the manuscript runs at **2.6 ×** averaged over
+lags 1 to 20, and Latin at 1.4 × (rising with distance, as function words do). The
+generator sits below even the baseline. The separately quoted **2.78 ×** below is lags 2
+to 6 pooled, which is the basis the profile is matched on.
 
 **It is not flat. It drops at the paragraph, and only there.**
 
@@ -243,12 +244,14 @@ chance by construction.
 | configuration | within | w/base | across | a/base | 44-metric error |
 |---|---|---|---|---|---|
 | **manuscript** | 0.907 % | **2.78 ×** | 0.374 % | **1.15 ×** | — |
-| frozen configuration, no mechanism | 0.267 % | 0.88 × | 0.283 % | 0.94 × | 3.7 % |
 | sampled pool, 0.80 × 110 | 0.875 % | 2.77 × | 0.321 % | 1.02 × | 7.6 % |
 | passage self-pool, 0.08 | 0.700 % | 2.35 × | 0.296 % | 0.99 × | 5.2 % |
 | **the manual of §15, its own parameters** | **0.719 %** | **2.54 ×** | **0.273 %** | **0.96 ×** | **7.8 %** |
 
-The last line is the demonstration. The manual carries a passage-scoped pool because a
+(The rows are one seed on the selection split; the frozen configuration's own row is in
+the next table, where it is measured the same way as the pool it is compared against.)
+
+The manual row is the demonstration. The manual carries a passage-scoped pool because a
 hand naturally does, and its re-use rate was chosen on a selection split for the overall
 44-metric error in §15 — *not* for this profile, which had not been measured at that
 point. It reproduces the shape anyway.
@@ -266,11 +269,12 @@ from about 2.5 points to **0.5**, and made the profile match better rather than 
 | **manuscript** | **0.907 %** | **2.78 ×** | **0.374 %** | **1.15 ×** | — |
 | with the passage pool | 0.859 % | **2.85 ×** | 0.274 % | 0.91 × | 4.50 / 6.09 % |
 
-(normal / reversed split.) The within-paragraph ratio now lands on the target on *both*
-splits, so the mechanism is not fitting the split it was seen on. The price is 0.5 points
-on the selection split and 1.8 on the reversed one, and the reversed split is the honest
-one here — which is why the frozen configuration still leaves the mechanism off. That is
-now a documented choice at a measured price, not a gap.
+Three seeds, both splits (normal / reversed). The within-paragraph ratio now lands on the
+target on *both* splits — 2.85 × and 2.83 × against 2.78 × — so the mechanism is not
+fitting the split it was seen on. The price is 0.5 points on the selection split and 1.8
+on the reversed one, and the reversed split is the honest one here, which is why the
+frozen configuration still leaves the mechanism off. That is a documented choice at a
+measured price rather than a gap. `repetition_fix.py` prints this table.
 
 The analogous mechanism for the front-of-word dependence is in §10 and does not fare as
 well: it reaches the target only by wrecking the length tails.
@@ -296,14 +300,18 @@ Corrected, the two differ by 0.0016 bits. There is no long-range character struc
 the manuscript beyond what the generator already produces — and both are an order of
 magnitude below Latin.
 
-What is real is a **short-offset** gap, where the sample is large enough that the
-correction is negligible (≈0.01 bits on 23 000 pairs):
+What is real is a **short-offset** gap. Its magnitude depends on how the estimator's bias
+is handled, and at these table sizes the analytic correction is not reliable enough to
+settle it — which is why §10 measures the same quantity with a permutation control
+instead. Under that control the gap is 93 % at offset 3 and 77 % at offset 4, confined to
+character distances 3 to 6:
 
-| within-word MI, offset 4 | corrected | ratio |
+| within-word MI | offset 3 | offset 4 |
 |---|---|---|
-| manuscript | 0.2497 | |
-| generator | 0.2147 | 86 % |
-| Latin | 0.1427 | 57 % |
+| manuscript | 0.335 | 0.097 |
+| generator | 0.309 | 0.075 |
+| ratio | 92 % | 77 % |
+| beyond offset 6 | none in either | |
 
 ### 9. The generator already implements the slot grammar
 
@@ -319,6 +327,10 @@ crust / mantle / core:
 Thirty cores cover 92.6 % of all words. The interior of a Voynich word is nearly a
 constant; almost all the information sits at the two edges.
 
+(The inventory in that table is measured over all loci; the H(core) of 2.10 in the
+comparison below is the same slot measured on the body-text split the model is scored on.
+The two differ by the selection of text, not by method.)
+
 A slot grammar was proposed as the fix for §8. It is not needed: the bigram chain
 already lands in the same structure, and the remaining differences are inside a few per
 cent.
@@ -332,8 +344,11 @@ The crust-to-ending coupling is reproduced too: MI(onset class ; final character
 0.1026 against 0.0943 (92 %), and P(final `y` | onset class) tracks the manuscript
 (`ch`: 51 % vs 49 %, `qo`: 47 % vs 50 %, `sh`: 58 % vs 56 %).
 
-Every character-level dependency measured here is reproduced at **86–100 %**. The residual
-is a uniform few per cent rather than a missing component.
+Every character-level dependency measured here is reproduced at **86–100 %** — with one
+exception, which §10 is about: the dependence that runs along the *front* of a word is
+under-produced and cannot be closed within this architecture. An earlier revision of this
+section ended here and called the residual "a uniform few per cent rather than a missing
+component". That was wrong, and §10 replaces it.
 
 ### 10. What is actually missing
 
@@ -460,12 +475,13 @@ designs on the same held-out leaves:
 
 | design | per-section error | pooled |
 |---|---|---|
-| **A** one pooled model, the whole held-out half at once | — | **3.7 %** |
+| **A** one pooled model, the whole held-out half at once | — | **3.9 %** |
 | **B** the same pooled model, each held-out section alone | 10.6–26.2 % | 14.4 % |
 | **C** one parameter set per section, half a section each way | 5.7–14.2 % | 7.5 % |
 
-A and B are the same model. The distance between 3.7 % and 14.4 % is not a fitting
-failure: pooling the sections produces statistics that no individual section has, and
+A and B are the same model. (A reads 3.9 % in this script and 3.7 % in the headline:
+same model and split; the script measures one seed, the headline averages three.) The
+distance between 3.9 % and 14.4 % is not a fitting failure: pooling the sections produces statistics that no individual section has, and
 what the model reproduces is the mixture. So the honest form of the headline is: *a
 language-free procedure reproduces the aggregate statistics of the manuscript to 3.7 %;
 applied to any single section it is off by 10–26 %, and with per-section parameters by
@@ -548,14 +564,6 @@ same for biological and pharmaceutical. The A/B contrast is real but it is not a
 
 `section_structure.py`.
 
-## Assessment of claims encountered along the way
-
-Two groups of claims were examined and are written up in
-[`docs/claims-assessment.md`](docs/claims-assessment.md): a repository proposing a
-camera-obscura encoding with an Old Church Slavonic reading, and the 2026 news wave
-reporting that an AI had deciphered the manuscript. Both are refuted by their own
-material and by the data.
-
 ### 15. The manual: a hand-executable procedure that reaches 7.8 %
 
 Everything above is a computer result. The generator reaches 3.7 % by rejection sampling on
@@ -621,3 +629,11 @@ overall 44-metric error. Measured afterwards against the manuscript's repetition
 (`repetition_fix.py`, §7), it lands at 2.54 × chance inside a passage against a target of
 2.78 ×, and 0.96 × across the break against 1.15 ×. The shape came out of the hand's
 natural bookkeeping rather than out of fitting.
+
+## Assessment of claims encountered along the way
+
+Two groups of claims were examined and are written up in
+[`docs/claims-assessment.md`](docs/claims-assessment.md): a repository proposing a
+camera-obscura encoding with an Old Church Slavonic reading, and the 2026 news wave
+reporting that an AI had deciphered the manuscript. Both are refuted by their own
+material and by the data.

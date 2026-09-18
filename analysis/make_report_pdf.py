@@ -8,6 +8,8 @@ drift away from the code without someone noticing.
 import json
 import os
 import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import voynich_lib as V
 
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_JUSTIFY, TA_CENTER
@@ -66,14 +68,14 @@ def table(rows, widths, align="LEFT"):
 
 def load():
     d = {}
-    for name, path in (("frozen", os.path.join(HERE, "FROZEN_RESULTS.json")),
+    for name, path in (("frozen", V.frozen_path("FROZEN_RESULTS.json")),
                        ("cmp", os.path.join(HERE, "GENERATOR_COMPARISON.json")),
                        ("book", os.path.join(HERE, "BOOK_MODEL.json")),
                        ("rep", os.path.join(HERE, "REPETITION_FIX.json")),
                        ("mi", os.path.join(HERE, "WORD_MI_GAP.json")),
                        ("scribe", os.path.join(HERE, "SCRIBE_RESULT.json"))):
         d[name] = json.load(open(path, encoding="utf-8")) if os.path.exists(path) else {}
-    d["cfg"] = json.load(open(os.path.join(HERE, "FROZEN_CONFIG.json"), encoding="utf-8"))
+    d["cfg"] = json.load(open(V.frozen_path("FROZEN_CONFIG.json"), encoding="utf-8"))
     return d
 
 
@@ -149,14 +151,15 @@ def build():
         "in 1976 that Voynichese is far below European plain text; the figure here "
         "reproduces that and is not new."))
     A(table([["corpus", "h2 (bits)"],
-             ["<b>Voynich manuscript</b>", "<b>1.89</b>"],
-             ["a meaning-free generator (this work)", "1.68–1.77"],
-             ["closest of 13 corpora (Augustine)", "2.98"],
+             ["<b>Voynich manuscript</b>, EVA, all loci", "<b>1.893</b>"],
+             ["<b>Voynich manuscript</b>, body text, held-out half", "<b>1.842</b>"],
+             ["a meaning-free generator (this work), same split", "1.86"],
+             ["closest of 13 corpora (Dante, Italian)", "3.13"],
              ["Latin / Italian / Spanish", "3.19 / 3.19 / 3.19"],
              ["Old Church Slavonic / Greek / Hebrew", "3.49 / 3.58 / 3.85"]],
             [95 * mm, 30 * mm], align="CENTER"))
     A(P("The gap to the nearest language is 1.09 bits; the gap to the generator is "
-        "0.13–0.22 bits. The result survives the obvious objection that EVA writes "
+        "0.018 bits. The result survives the obvious objection that EVA writes "
         "one manuscript glyph with two Latin characters: across five independent "
         "transliteration alphabets, including Currier's v101 where one glyph is exactly "
         "one character and the alphabet has 166 symbols, h2 stays between 1.85 and 2.35 "
@@ -422,7 +425,7 @@ def build():
     rows.append(["<b>C</b> one parameter set per section", "4.4–9.2 %",
                  "6.4–16.8 %", f"<b>{book.get('C_per_section_parameters',{}).get('pooled_pct',0):.2f} %</b>"])
     A(table(rows, [82 * mm, 24 * mm, 24 * mm, 24 * mm], align="CENTER"))
-    A(P("A and B are the same model. The distance between 3.7 % and 14.4 % is not a "
+    A(P("A and B are the same model. The distance between them is not a "
         "fitting failure: pooling the sections produces statistics that no individual "
         "section has, and the model reproduces the mixture. Per-section parameters halve "
         "the per-section error, and their limit is text — the pharmaceutical section "
@@ -521,8 +524,8 @@ def build():
         "trap that any study of this transcription could fall into."))
     A(P("<b>1. A leaked layout parameter.</b> Line and paragraph constants were once "
         "taken from the held-out document. That is a leak, it inflated the result, and it "
-        "was found only because a reversed split was run. The honest within-section error "
-        "moved from 3.2 % to 4.0 %.", SMALL))
+        "was found only because a reversed split was run. The honest error moved from "
+        "3.2 % to 4.0 %.", SMALL))
     A(P("<b>2. A mutual-information comparison measuring its own estimator bias.</b> The "
         "Miller–Madow correction on the table sizes involved, 0.168 bits, was larger "
         "than the effect being compared. Corrected, the manuscript and generator agree to "

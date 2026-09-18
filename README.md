@@ -26,14 +26,18 @@ predictable.
 
 | corpus | h2 |
 |---|---|
-| **Voynich manuscript** | **1.893** |
-| a meaning-free generator (this repo) | 1.678 – 1.770 |
-| closest of 13 natural-language corpora (Augustine) | 2.979 |
+| **Voynich manuscript**, EVA, all loci | **1.893** |
+| **Voynich manuscript**, body text, held-out half | **1.842** |
+| a meaning-free generator (this repo), same split | 1.860 |
+| closest of 13 natural-language corpora (Dante, Italian) | 3.125 |
 | Latin / Italian / Spanish | 3.188 / 3.190 / 3.189 |
 | Old Church Slavonic / Greek / Hebrew | 3.493 / 3.578 / 3.846 |
 
-The gap between the manuscript and the nearest language is **1.09 bits**; the gap
-between the manuscript and the generator is **0.13–0.22 bits**.
+The gap between the manuscript and the nearest language is **1.23 bits**; the gap
+between the manuscript and the generator, measured on the same split, is **0.018 bits**.
+(An earlier revision quoted 1.678–1.770 for the generator and a 0.13–0.22 bit gap. Those
+numbers came from no script in this repository and did not match the frozen result; they
+are withdrawn.)
 
 The result survives the obvious objection that EVA writes one manuscript glyph with two
 Latin characters. Across five independent transliteration alphabets — including v101
