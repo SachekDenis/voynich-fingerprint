@@ -157,6 +157,7 @@ python analysis/word_mi_position.py    # where in the word the residual sits
 python analysis/book_model.py          # pooled vs per-section: what the headline measures
 python analysis/section_gap_localise.py # which table makes the sections different
 python analysis/make_report_pdf.py     # typeset report.pdf
+python analysis/check_report.py        # verify every figure in report.pdf
 ```
 
 `freeze_and_verify.py --verify` reproduces every number bit-for-bit (drift 0.00 %);

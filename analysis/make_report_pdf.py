@@ -139,7 +139,7 @@ def build():
              ["folios", "206"],
              ["mean paragraph length", "5.16 lines"],
              ["mean line length", "42.0 characters"],
-             ["comparison corpora", "13 (Universal Dependencies)"],
+             ["comparison corpora", "13 (11 UD treebanks, 2 text corpora)"],
              ["transliteration alphabets tested", "5 (EVA, v101, ZL, FSG, Friedman)"]],
             [70 * mm, 55 * mm],
             align="CENTER"))
@@ -158,8 +158,8 @@ def build():
              ["Latin / Italian / Spanish", "3.19 / 3.19 / 3.19"],
              ["Old Church Slavonic / Greek / Hebrew", "3.49 / 3.58 / 3.85"]],
             [95 * mm, 30 * mm], align="CENTER"))
-    A(P("The gap to the nearest language is 1.09 bits; the gap to the generator is "
-        "0.018 bits. The result survives the obvious objection that EVA writes "
+    A(P("The gap to the nearest language is 1.23 bits; the gap to the generator, on the "
+        "same split, is 0.018 bits. The result survives the obvious objection that EVA writes "
         "one manuscript glyph with two Latin characters: across five independent "
         "transliteration alphabets, including Currier's v101 where one glyph is exactly "
         "one character and the alphabet has 166 symbols, h2 stays between 1.85 and 2.35 "
@@ -202,8 +202,9 @@ def build():
         "Voynichese at −11.11 per character against a Latin ceiling of −8.57 and "
         "a random-mapping floor of −13.81."))
     A(P("The word-length distribution alone excludes a letter-level cipher over any of "
-        "the thirteen corpora: the manuscript has 5.8 % words of two letters or fewer "
-        "where the corpora have 17.9–27.3 %. A transposition or homophonic scheme "
+        "the thirteen corpora: the manuscript has 7.6 % words of two letters or fewer, and "
+        "every one of the thirteen has more — 8.2 % in German, 33.5 % in Dante. "
+        "A transposition or homophonic scheme "
         "preserves that distribution and is not excluded by it; it is excluded by the "
         "character entropy."))
 
@@ -353,7 +354,10 @@ def build():
         "construction."))
     rep = D["rep"]
     rows = [["configuration", "inside", "ratio", "across", "ratio", "44-metric error"]]
-    labels = [("manuscript", "manuscript"), ("frozen (no mechanism)", "frozen"),
+    # The frozen configuration's own row is in the cost table below, measured the same
+    # way as the pool it is compared against. It used to appear here too, from a
+    # single-seed run, which put two different numbers for one thing in one section.
+    labels = [("manuscript", "manuscript"),
               ("sampled pool, 0.80 × 110", "sampled_pool_wide"),
               ("passage self-pool, 0.08", "selfpool_0.08"),
               ("the manual, its own parameters", "manual_0.12")]
@@ -367,6 +371,8 @@ def build():
                      f(f"{r['across']:.3f} %"), f(f"{r['across_ratio']:.2f} ×"),
                      f("—") if "overall_pct" not in r else f(f"{r['overall_pct']:.2f} %")])
     A(table(rows, [55 * mm, 20 * mm, 18 * mm, 20 * mm, 17 * mm, 26 * mm], align="CENTER"))
+    A(P("One seed on the selection split; the frozen configuration's own row is below, "
+        "where it is measured the same way as the pool it is compared against.", CAP))
     A(P("The last line is the demonstration. The manual carries a passage-scoped pool "
         "because a hand naturally does, and its re-use rate was chosen on a selection "
         "split for the overall 44-metric error — not for this profile, which had not "
@@ -420,7 +426,7 @@ def build():
         rows.append(["<b>A</b> one pooled model, whole held-out half",
                      f"<b>{a['tier1_pct']:.1f} %</b>", f"<b>{a['tier2_pct']:.1f} %</b>",
                      f"<b>{a['overall_pct']:.2f} %</b>"])
-    rows.append(["<b>B</b> the same model, each section alone", "9.1–19.1 %",
+    rows.append(["<b>B</b> the same model, each section alone", "5.5–19.1 %",
                  "11.4–29.8 %", f"<b>{book.get('B_pooled_model_per_section',{}).get('pooled_pct',0):.2f} %</b>"])
     rows.append(["<b>C</b> one parameter set per section", "4.4–9.2 %",
                  "6.4–16.8 %", f"<b>{book.get('C_per_section_parameters',{}).get('pooled_pct',0):.2f} %</b>"])
