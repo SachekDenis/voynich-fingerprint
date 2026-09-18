@@ -1,0 +1,11 @@
+{
+ "tier1_pct": 7.330243838702568,
+ "tier2_pct": 8.04405668328006,
+ "overall_pct": 7.800711395355915,
+ "n_forms": 60,
+ "p_pair": 0.3,
+ "p_reuse": 0.12,
+ "gallows_p": 0.08,
+ "generated_words": 15336,
+ "held_out_words": 16436
+}

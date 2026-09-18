@@ -1,0 +1,7 @@
+data/*
+!data/README.md
+__pycache__/
+*.pyc
+*.png
+*.pdf
+!report.pdf

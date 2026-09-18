@@ -1,0 +1,71 @@
+{
+ "A_pooled_whole_book": {
+  "tier1_pct": 2.276651354454715,
+  "tier2_pct": 4.7615254745611075,
+  "overall_pct": 3.9144092972521105,
+  "words": 16436
+ },
+ "B_pooled_model_per_section": {
+  "per_section": {
+   "herbal": {
+    "tier1_pct": 9.424507209308128,
+    "tier2_pct": 14.420009884670119,
+    "overall_pct": 12.716997608978533,
+    "words": 4897
+   },
+   "biological": {
+    "tier1_pct": 19.06304375921718,
+    "tier2_pct": 29.832260236147526,
+    "overall_pct": 26.160936437194003,
+    "words": 3141
+   },
+   "pharmaceutical": {
+    "tier1_pct": 9.139904167731377,
+    "tier2_pct": 11.363036157097982,
+    "overall_pct": 10.605150251632095,
+    "words": 2043
+   },
+   "recipes": {
+    "tier1_pct": 5.478214145611747,
+    "tier2_pct": 13.228989713638303,
+    "overall_pct": 10.586679860901977,
+    "words": 5689
+   }
+  },
+  "pooled_pct": 14.352605094048824
+ },
+ "C_per_section_parameters": {
+  "per_section": {
+   "herbal": {
+    "tier1_pct": 4.541742484897947,
+    "tier2_pct": 6.356634602011692,
+    "overall_pct": 5.737921380268369,
+    "train_words": 5706,
+    "held_out_words": 4897
+   },
+   "biological": {
+    "tier1_pct": 5.704173311241962,
+    "tier2_pct": 9.71168502794382,
+    "overall_pct": 8.345487851795461,
+    "train_words": 3584,
+    "held_out_words": 3141
+   },
+   "pharmaceutical": {
+    "tier1_pct": 9.222839089408094,
+    "tier2_pct": 16.774476735252563,
+    "overall_pct": 14.200054810532857,
+    "train_words": 1494,
+    "held_out_words": 2043
+   },
+   "recipes": {
+    "tier1_pct": 4.43824642170349,
+    "tier2_pct": 7.005543871405563,
+    "overall_pct": 6.130328831734402,
+    "train_words": 4982,
+    "held_out_words": 5689
+   }
+  },
+  "pooled_pct": 7.495112938701292
+ },
+ "note": "A and B use the same model; the gap between them is the section difference, not a fitting failure."
+}

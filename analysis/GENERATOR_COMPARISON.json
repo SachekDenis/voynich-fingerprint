@@ -1,0 +1,122 @@
+{
+ "held_out": {
+  "words": 16436,
+  "types": 4526,
+  "lines": 2023,
+  "metrics_compared": 27
+ },
+ "timm_best_config": {
+  "canFollow": "none",
+  "morph": "slim",
+  "sourceChooser": "page"
+ },
+ "results": {
+  "Timm (none)": {
+   "structural_err_pct": 17.50539678048213,
+   "tier1_err_pct": 19.869192710743995,
+   "words_per_run": 16038,
+   "types_per_run": 5218
+  },
+  "ours (frozen)": {
+   "structural_err_pct": 4.565845266399645,
+   "tier1_err_pct": 2.681750638218647,
+   "words_per_run": 18828,
+   "types_per_run": 4740
+  },
+  "the manual": {
+   "structural_err_pct": 8.398201508937023,
+   "tier1_err_pct": 7.330243838702568,
+   "words_per_run": 15336,
+   "types_per_run": 3531
+  }
+ },
+ "per_metric": {
+  "Timm (none)": {
+   "line chars mean": 2.9779476624522303,
+   "line chars sd": 37.635962807266836,
+   "words per line mean": 2.4215137503041997,
+   "lines": 0.0,
+   "para/line-initial gallows %": 12.359550561797754,
+   "all gallows %": 21.795672456670413,
+   "onset ent ropy": 6.413154833608234,
+   "qo- onset %": 64.00626006226801,
+   "ch- onset %": 4.116091668563182,
+   "y- onset %": 11.409399908964483,
+   "top10 (first,last) pairs %": 36.46239384744669,
+   "distinct (first,last) pairs": 16.577540106951872,
+   "zipf slope (top500)": 21.321823426273685,
+   "hapax share of types %": 12.940533480970423,
+   "adjacent identical words %": 6.065039281975112,
+   "repeated word-pair %": 32.970727227522026,
+   "H pos1 from start": 11.273425332540633,
+   "H pos1 from end": 23.708110940841348,
+   "H pos2 from start": 13.692110259149395,
+   "H pos2 from end": 15.096032270530655,
+   "H pos3 from start": 6.479432669962618,
+   "H pos3 from end": 11.157589770903394,
+   "H pos4 from start": 4.0394939832504075,
+   "H pos4 from end": 10.247396604451234,
+   "len>=8 %": 54.059273578793096,
+   "len>=10 %": 5.673074890042726,
+   "len<=2 %": 27.746161689516807
+  },
+  "ours (frozen)": {
+   "line chars mean": 7.090374267156037,
+   "line chars sd": 11.005252027034865,
+   "words per line mean": 6.92287699805808,
+   "lines": 7.151095732410611,
+   "para/line-initial gallows %": 11.229401481719691,
+   "all gallows %": 3.807539107605626,
+   "onset ent ropy": 0.5184755251984285,
+   "qo- onset %": 1.2041423654275747,
+   "ch- onset %": 3.071663258884062,
+   "y- onset %": 2.275587057977048,
+   "top10 (first,last) pairs %": 0.7795943136956041,
+   "distinct (first,last) pairs": 1.9607843137254903,
+   "zipf slope (top500)": 2.163748510661875,
+   "hapax share of types %": 4.444293572758788,
+   "adjacent identical words %": 20.734223133027736,
+   "repeated word-pair %": 12.324314324843966,
+   "H pos1 from start": 0.3458298772670261,
+   "H pos1 from end": 2.8959012276666183,
+   "H pos2 from start": 0.33787530245735437,
+   "H pos2 from end": 0.9086303772186038,
+   "H pos3 from start": 1.0143566067755085,
+   "H pos3 from end": 0.7748481474192525,
+   "H pos4 from start": 0.35110039492736705,
+   "H pos4 from end": 0.9768107101429226,
+   "len>=8 %": 10.371465072510622,
+   "len>=10 %": 5.319627769112515,
+   "len<=2 %": 3.298010717107156
+  },
+  "the manual": {
+   "line chars mean": 6.521611290796815,
+   "line chars sd": 0.2073798225998783,
+   "words per line mean": 6.69262594305183,
+   "lines": 0.0,
+   "para/line-initial gallows %": 22.24719101123596,
+   "all gallows %": 4.946230889152845,
+   "onset ent ropy": 2.5529170056336947,
+   "qo- onset %": 2.870747975295966,
+   "ch- onset %": 1.4622947140566411,
+   "y- onset %": 9.247931624375623,
+   "top10 (first,last) pairs %": 11.183231333563553,
+   "distinct (first,last) pairs": 19.25133689839572,
+   "zipf slope (top500)": 19.584861711499663,
+   "hapax share of types %": 11.065938023362731,
+   "adjacent identical words %": 1.1774335869542836,
+   "repeated word-pair %": 19.364163200206015,
+   "H pos1 from start": 0.6444804287747251,
+   "H pos1 from end": 14.739854909897273,
+   "H pos2 from start": 1.8578877374363292,
+   "H pos2 from end": 11.845531739724285,
+   "H pos3 from start": 0.2704561846700978,
+   "H pos3 from end": 4.99455582448096,
+   "H pos4 from start": 6.4364819651393494,
+   "H pos4 from end": 9.376362487317087,
+   "len>=8 %": 21.655458275176578,
+   "len>=10 %": 5.689306929620789,
+   "len<=2 %": 10.865169228880903
+  }
+ }
+}

@@ -1,0 +1,92 @@
+THE SCRIBE'S MANUAL
+==================================================================
+
+Everything needed to write text of this kind by hand. No counting,
+no arithmetic: each rule below is one look-up and one roll of a die.
+
+A.  FORM TABLE -- the 60 shapes, most used first.
+    One pen movement each.
+           ol         y         s        or         o         k      aiin         d
+           ar        al        ch         t     daiin     chedy       che       qot
+          chy         l        ot      chey       ain         p        ok         e
+         chol        dy        sh       dar       she       dal     shedy       cho
+           ee       qok         r        am        qo        yk        yt       cth
+          ody      chdy       olk      chor       edy      eedy       eey        ey
+            f      dain      shey       sho        op      cheo       air        lk
+      qokeedy       eol       ckh      ckhy
+
+B.  OPENINGS -- the standard ways a word starts.
+      after a word with onset   d: d 0.28, daiin 0.26, dal 0.14, dar 0.13
+      after a word with onset   y: y 0.45, yt 0.28, yk 0.27
+      after a word with onset   o: ol 0.70, ot 0.06, or 0.06, o 0.05
+      after a word with onset ckh: ckh 0.73, ckhy 0.27
+      after a word with onset  ch: ch 0.20, che 0.17, chedy 0.13, chol 0.11
+      after a word with onset   s: s 1.00
+      after a word with onset cth: cth 1.00
+      after a word with onset  qo: qot 0.39, qok 0.25, qo 0.23, qokeedy 0.13
+      after a word with onset   a: ar 0.29, al 0.26, aiin 0.26, ain 0.08
+      after a word with onset  sh: sh 0.27, she 0.26, shedy 0.22, sho 0.13
+
+C.  LINK TABLE -- after writing this letter, the next shape.
+        n: y 0.15, d 0.09, o 0.09, daiin 0.07, ot 0.07
+        y: p 0.09, s 0.06, daiin 0.05, t 0.05, d 0.05
+        p: chedy 0.10, ol 0.08, y 0.07, chy 0.07, ch 0.06
+        t: eedy 0.07, aiin 0.06, ar 0.06, ain 0.06, ee 0.06
+        h: aiin 0.06, ol 0.06, d 0.05, s 0.05, k 0.05
+        l: y 0.11, dy 0.07, or 0.07, ol 0.06, s 0.05
+        s: y 0.11, or 0.11, ain 0.11, al 0.09, o 0.08
+        r: y 0.14, aiin 0.14, al 0.08, ol 0.08, am 0.07
+        o: daiin 0.07, f 0.07, ee 0.07, d 0.07, e 0.06
+        d: o 0.09, l 0.08, chy 0.07, shedy 0.06, s 0.05
+        k: eey 0.06, chy 0.06, eedy 0.06, edy 0.05, ol 0.05
+        f: chedy 0.12, y 0.09, ol 0.08, ar 0.06, chy 0.06
+        e: s 0.10, k 0.07, or 0.07, ody 0.07, d 0.07
+        m: o 0.29, y 0.14, chor 0.14, dy 0.14, chy 0.14
+
+D.  LENGTH -- how many letters the next word has.
+      1: 0.01, 2: 0.06, 3: 0.09, 4: 0.18, 5: 0.25, 6: 0.20, 7: 0.12, 8: 0.05, 9: 0.02, 10: 0.01, 11: 0.00, 12: 0.00
+
+E.  CLOSINGS -- the stock endings, by the word's length.
+      length  4: ol 0.18, in 0.17, ey 0.17, ar 0.12, or 0.11
+      length  5: dy 0.26, in 0.22, ey 0.16, ol 0.11, ar 0.08
+      length  6: edy 0.36, iin 0.23, eey 0.16, ain 0.12, ody 0.08
+      length  7: edy 0.36, iin 0.31, ody 0.10, hey 0.09, eey 0.07
+      length  8: iin 0.33, edy 0.30, ody 0.10, hey 0.10, ain 0.09
+      length  9: iin 0.46, edy 0.22, hey 0.10, eey 0.09, ain 0.08
+      length 10: iin 0.43, edy 0.22, hey 0.09, ody 0.09, ain 0.09
+      length 11: iin 0.38, edy 0.21, hey 0.17, eey 0.14, ody 0.07
+      length 12: iin 0.51, edy 0.13, ody 0.11, eey 0.09, hey 0.08
+
+F.  CARRY-OVER -- the last letter of the previous word sets the onset.
+      after ...  y: qo 0.26, o 0.18, ch 0.12, d 0.10
+      after ...  l: ch 0.21, o 0.18, d 0.12, sh 0.12
+      after ...  n: o 0.28, ch 0.22, sh 0.12, qo 0.09
+      after ...  r: o 0.26, ch 0.21, a 0.17, sh 0.12
+      after ...  h: o 0.31, d 0.14, k 0.10, s 0.10
+      after ...  d: qo 0.24, o 0.18, ch 0.12, a 0.09
+      after ...  s: a 0.25, o 0.24, ch 0.14, sh 0.09
+      after ...  o: d 0.14, l 0.12, o 0.10, ch 0.10
+      after ...  e: o 0.21, k 0.18, ch 0.10, d 0.10
+      after ...  m: o 0.17, d 0.16, y 0.13, s 0.11
+      after ...  p: ch 0.44, sh 0.22, a 0.11, d 0.11
+      after ...  t: ch 0.33, sh 0.33, y 0.13, d 0.07
+
+G.  STOCK PHRASES -- after a word that has a habitual partner, write the
+    partner instead of thinking of a new word: 30% of the time.
+
+H.  PAGE RULES
+      fill the column that the drawing leaves and no more
+      a passage runs a few lines; when it ends, start a fresh one and
+        take your forms from that passage, not from the page before
+      open a line with a tall stroke now and then
+      now and then write a word again from the same passage with one
+        shape swapped for the one that usually follows it (12%)
+      tall stroke at a line opening, about 8% of lines
+
+PROCEDURE for one word
+      1. glance at the last letter you wrote -> onset class (F)
+      2. write the opening (B)
+      3. decide how long this word is (D) and how it ends (E)
+      4. fill the middle with shapes (C) until the word is that size
+      5. if a line is already running, keep the word short enough to
+         reach the margin without running past it

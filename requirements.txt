@@ -1,0 +1,4 @@
+numpy>=1.24
+Pillow>=10.0
+# optional, only for the facsimile and poster scripts:
+fonttools>=4.40
